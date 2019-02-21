@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="Dobavljac"></div>
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#Dobavljac').jtable({
+                title: 'Dobavljaci',
+                paging: true, //Enable paging
+                pageSize: 10, //Set page size (default: 10)
+                sorting: true, //Enable sorting
+                defaultSorting: 'Naziv ASC', //Set default sorting
+                actions: {
+                    listAction: '/Dobavljac/List',
+                    deleteAction: '/Dobavljac/Delete',
+                    updateAction: '/Dobavljac/Update',
+                    createAction: '/Dobavljac/Create'
+                },
+                fields: {
+                    DobavljacID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Naziv: {
+                        title: 'Naziv',
+                        width: '50%'
+                    }
+                }
+            });
+
+            //Load student list from server
+            $('#Dobavljac').jtable('load');
+        });
+
+    </script>
+}
+
+
+

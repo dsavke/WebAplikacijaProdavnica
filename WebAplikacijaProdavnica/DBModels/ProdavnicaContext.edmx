@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Skola_dejanSavanovicModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Artikl">
+          <Key>
+            <PropertyRef Name="ArtiklID" />
+          </Key>
+          <Property Name="ArtiklID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cijena" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Kolicina" Type="int" Nullable="false" />
+          <Property Name="Opis" Type="nvarchar" MaxLength="1000" Nullable="false" />
+          <Property Name="DobavljacID" Type="int" Nullable="false" />
+          <Property Name="Slika" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Dobavljac">
+          <Key>
+            <PropertyRef Name="DobavljacID" />
+          </Key>
+          <Property Name="DobavljacID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="KorisnikID" />
+          </Key>
+          <Property Name="KorisnikID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Adresa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Pol" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DatumRodjenja" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KorisnikUloga">
+          <Key>
+            <PropertyRef Name="KorisnikUlogaID" />
+          </Key>
+          <Property Name="KorisnikUlogaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KorisnikID" Type="int" Nullable="false" />
+          <Property Name="UlogaID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uloga">
+          <Key>
+            <PropertyRef Name="UlogaID" />
+          </Key>
+          <Property Name="UlogaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naziv" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Artikl_Dobavljac">
+          <End Role="Dobavljac" Type="Self.Dobavljac" Multiplicity="1" />
+          <End Role="Artikl" Type="Self.Artikl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dobavljac">
+              <PropertyRef Name="DobavljacID" />
+            </Principal>
+            <Dependent Role="Artikl">
+              <PropertyRef Name="DobavljacID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KorisnikUloga_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="KorisnikUloga" Type="Self.KorisnikUloga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="KorisnikUloga">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KorisnikUloga_Uloga">
+          <End Role="Uloga" Type="Self.Uloga" Multiplicity="1" />
+          <End Role="KorisnikUloga" Type="Self.KorisnikUloga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uloga">
+              <PropertyRef Name="UlogaID" />
+            </Principal>
+            <Dependent Role="KorisnikUloga">
+              <PropertyRef Name="UlogaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Skola_dejanSavanovicModelStoreContainer">
+          <EntitySet Name="Artikl" EntityType="Self.Artikl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dobavljac" EntityType="Self.Dobavljac" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Korisnik" EntityType="Self.Korisnik" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KorisnikUloga" EntityType="Self.KorisnikUloga" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uloga" EntityType="Self.Uloga" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Artikl_Dobavljac" Association="Self.FK_Artikl_Dobavljac">
+            <End Role="Dobavljac" EntitySet="Dobavljac" />
+            <End Role="Artikl" EntitySet="Artikl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KorisnikUloga_Korisnik" Association="Self.FK_KorisnikUloga_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="KorisnikUloga" EntitySet="KorisnikUloga" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KorisnikUloga_Uloga" Association="Self.FK_KorisnikUloga_Uloga">
+            <End Role="Uloga" EntitySet="Uloga" />
+            <End Role="KorisnikUloga" EntitySet="KorisnikUloga" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Skola_dejanSavanovicModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProdavnicaContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Artikls" EntityType="Skola_dejanSavanovicModel.Artikl" />
+          <EntitySet Name="Dobavljacs" EntityType="Skola_dejanSavanovicModel.Dobavljac" />
+          <EntitySet Name="Korisniks" EntityType="Skola_dejanSavanovicModel.Korisnik" />
+          <EntitySet Name="KorisnikUlogas" EntityType="Skola_dejanSavanovicModel.KorisnikUloga" />
+          <EntitySet Name="Ulogas" EntityType="Skola_dejanSavanovicModel.Uloga" />
+          <AssociationSet Name="FK_Artikl_Dobavljac" Association="Skola_dejanSavanovicModel.FK_Artikl_Dobavljac">
+            <End Role="Dobavljac" EntitySet="Dobavljacs" />
+            <End Role="Artikl" EntitySet="Artikls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KorisnikUloga_Korisnik" Association="Skola_dejanSavanovicModel.FK_KorisnikUloga_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="KorisnikUloga" EntitySet="KorisnikUlogas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KorisnikUloga_Uloga" Association="Skola_dejanSavanovicModel.FK_KorisnikUloga_Uloga">
+            <End Role="Uloga" EntitySet="Ulogas" />
+            <End Role="KorisnikUloga" EntitySet="KorisnikUlogas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Artikl">
+          <Key>
+            <PropertyRef Name="ArtiklID" />
+          </Key>
+          <Property Name="ArtiklID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cijena" Type="Decimal" Nullable="false" Precision="12" Scale="2" />
+          <Property Name="Kolicina" Type="Int32" Nullable="false" />
+          <Property Name="Opis" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="DobavljacID" Type="Int32" Nullable="false" />
+          <Property Name="Slika" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dobavljac" Relationship="Skola_dejanSavanovicModel.FK_Artikl_Dobavljac" FromRole="Artikl" ToRole="Dobavljac" />
+        </EntityType>
+        <EntityType Name="Dobavljac">
+          <Key>
+            <PropertyRef Name="DobavljacID" />
+          </Key>
+          <Property Name="DobavljacID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Artikls" Relationship="Skola_dejanSavanovicModel.FK_Artikl_Dobavljac" FromRole="Dobavljac" ToRole="Artikl" />
+        </EntityType>
+        <EntityType Name="Korisnik">
+          <Key>
+            <PropertyRef Name="KorisnikID" />
+          </Key>
+          <Property Name="KorisnikID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Prezime" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adresa" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DatumRodjenja" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="KorisnikUlogas" Relationship="Skola_dejanSavanovicModel.FK_KorisnikUloga_Korisnik" FromRole="Korisnik" ToRole="KorisnikUloga" />
+        </EntityType>
+        <EntityType Name="KorisnikUloga">
+          <Key>
+            <PropertyRef Name="KorisnikUlogaID" />
+          </Key>
+          <Property Name="KorisnikUlogaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KorisnikID" Type="Int32" Nullable="false" />
+          <Property Name="UlogaID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Korisnik" Relationship="Skola_dejanSavanovicModel.FK_KorisnikUloga_Korisnik" FromRole="KorisnikUloga" ToRole="Korisnik" />
+          <NavigationProperty Name="Uloga" Relationship="Skola_dejanSavanovicModel.FK_KorisnikUloga_Uloga" FromRole="KorisnikUloga" ToRole="Uloga" />
+        </EntityType>
+        <EntityType Name="Uloga">
+          <Key>
+            <PropertyRef Name="UlogaID" />
+          </Key>
+          <Property Name="UlogaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KorisnikUlogas" Relationship="Skola_dejanSavanovicModel.FK_KorisnikUloga_Uloga" FromRole="Uloga" ToRole="KorisnikUloga" />
+        </EntityType>
+        <Association Name="FK_Artikl_Dobavljac">
+          <End Type="Skola_dejanSavanovicModel.Dobavljac" Role="Dobavljac" Multiplicity="1" />
+          <End Type="Skola_dejanSavanovicModel.Artikl" Role="Artikl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dobavljac">
+              <PropertyRef Name="DobavljacID" />
+            </Principal>
+            <Dependent Role="Artikl">
+              <PropertyRef Name="DobavljacID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KorisnikUloga_Korisnik">
+          <End Type="Skola_dejanSavanovicModel.Korisnik" Role="Korisnik" Multiplicity="1" />
+          <End Type="Skola_dejanSavanovicModel.KorisnikUloga" Role="KorisnikUloga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="KorisnikUloga">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KorisnikUloga_Uloga">
+          <End Type="Skola_dejanSavanovicModel.Uloga" Role="Uloga" Multiplicity="1" />
+          <End Type="Skola_dejanSavanovicModel.KorisnikUloga" Role="KorisnikUloga" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uloga">
+              <PropertyRef Name="UlogaID" />
+            </Principal>
+            <Dependent Role="KorisnikUloga">
+              <PropertyRef Name="UlogaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Skola_dejanSavanovicModelStoreContainer" CdmEntityContainer="ProdavnicaContext">
+          <EntitySetMapping Name="Artikls">
+            <EntityTypeMapping TypeName="Skola_dejanSavanovicModel.Artikl">
+              <MappingFragment StoreEntitySet="Artikl">
+                <ScalarProperty Name="Slika" ColumnName="Slika" />
+                <ScalarProperty Name="DobavljacID" ColumnName="DobavljacID" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+                <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="ArtiklID" ColumnName="ArtiklID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dobavljacs">
+            <EntityTypeMapping TypeName="Skola_dejanSavanovicModel.Dobavljac">
+              <MappingFragment StoreEntitySet="Dobavljac">
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="DobavljacID" ColumnName="DobavljacID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Korisniks">
+            <EntityTypeMapping TypeName="Skola_dejanSavanovicModel.Korisnik">
+              <MappingFragment StoreEntitySet="Korisnik">
+                <ScalarProperty Name="DatumRodjenja" ColumnName="DatumRodjenja" />
+                <ScalarProperty Name="Pol" ColumnName="Pol" />
+                <ScalarProperty Name="Adresa" ColumnName="Adresa" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KorisnikUlogas">
+            <EntityTypeMapping TypeName="Skola_dejanSavanovicModel.KorisnikUloga">
+              <MappingFragment StoreEntitySet="KorisnikUloga">
+                <ScalarProperty Name="UlogaID" ColumnName="UlogaID" />
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+                <ScalarProperty Name="KorisnikUlogaID" ColumnName="KorisnikUlogaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ulogas">
+            <EntityTypeMapping TypeName="Skola_dejanSavanovicModel.Uloga">
+              <MappingFragment StoreEntitySet="Uloga">
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="UlogaID" ColumnName="UlogaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

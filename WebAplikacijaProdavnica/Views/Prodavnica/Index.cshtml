@@ -1,0 +1,63 @@
+﻿@model IEnumerable<WebAplikacijaProdavnica.Models.ArtiklViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Slika)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cijena)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kolicina)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Opis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DobavljacNaziv)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img width="20" height="20" src="@item.Slika" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cijena)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kolicina)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Opis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DobavljacNaziv)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id = item.ArtiklID  }) |
+            @Html.ActionLink("Details", "Details", new {  id = item.ArtiklID }) |
+            @Html.ActionLink("Delete", "Delete", new {  id = item.ArtiklID })
+        </td>
+    </tr>
+}
+
+</table>

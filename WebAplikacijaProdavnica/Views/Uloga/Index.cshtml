@@ -1,0 +1,41 @@
+﻿
+<div id="StudentTableContainer"></div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#StudentTableContainer').jtable({
+                title: 'Uloge',
+                paging: true, //Enable paging
+                pageSize: 10, //Set page size (default: 10)
+                sorting: true, //Enable sorting
+                defaultSorting: 'Naziv ASC', //Set default sorting
+                actions: {
+                    listAction: '/Uloga/List',
+                    deleteAction: '/Uloga/Delete',
+                    updateAction: '/Uloga/Edit',
+                    createAction: '/Uloga/Create'
+                },
+                fields: {
+                    UlogaID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Naziv: {
+                        title: 'Naziv'
+                    }
+                }
+            });
+
+            //Load student list from server
+            $('#StudentTableContainer').jtable('load');
+        });
+
+    </script>
+
+}
+

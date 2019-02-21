@@ -1,0 +1,52 @@
+﻿
+@{
+                /**/
+
+                ViewBag.Title = "Index";
+}
+
+<div id="StudentTableContainer"></div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#StudentTableContainer').jtable({
+                title: 'Korisnici i uloge',
+                paging: true, //Enable paging
+                pageSize: 10, //Set page size (default: 10)
+                sorting: true, //Enable sorting
+                defaultSorting: 'KorisnikID ASC', //Set default sorting
+                actions: {
+                    listAction: '/KorisnikUloga/List',
+                    deleteAction: '/KorisnikUloga/Delete',
+                    updateAction: '/KorisnikUloga/Edit',
+                    createAction: '/KorisnikUloga/Create'
+                },
+                fields: {
+                    KorisnikUlogaID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    KorisnikID: {
+                        title: 'Korisnik',
+                        options: '/KorisnikUloga/Korisnici'
+                    },
+                    UlogaID: {
+                        title: 'Uloga',
+                        options: '/KorisnikUloga/Uloge'
+                    }
+                }
+            });
+
+            //Load student list from server
+            $('#StudentTableContainer').jtable('load');
+        });
+
+    </script>
+
+}
+

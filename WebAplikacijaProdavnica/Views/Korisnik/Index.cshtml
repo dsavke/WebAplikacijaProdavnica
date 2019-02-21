@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="StudentTableContainer"></div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#StudentTableContainer').jtable({
+                title: 'Korisnici',
+                paging: true, //Enable paging
+                pageSize: 10, //Set page size (default: 10)
+                sorting: true, //Enable sorting
+                defaultSorting: 'Ime ASC', //Set default sorting
+                actions: {
+                    listAction: '/Korisnik/List',
+                    deleteAction: '/Korisnik/Delete',
+                    updateAction: '/Korisnik/Edit',
+                    createAction: '/Korisnik/Create'
+                },
+                fields: {
+                    KorisnikID: {
+                        key: true,
+                        create: false,
+                        edit: false,
+                        list: false
+                    },
+                    Ime: {
+                        title: 'Ime',
+                        width: '23%'
+                    },
+                    Prezime: {
+                        title: 'Prezime'
+                    },
+                    Adresa: {
+                        title: 'Adresa'
+                    },
+                    Pol: {
+                        title: 'Pol',
+                        width: '13%',
+                        options: { 'M': 'Musko', 'Z': 'Zensko' }
+                    },
+                    DatumRodjenja: {
+                        title: 'Datum rodjenja',
+                        width: '15%',
+                        type: 'date',
+                        displayFormat: 'yy-mm-dd'
+                    }
+                }
+            });
+
+            //Load student list from server
+            $('#StudentTableContainer').jtable('load');
+        });
+
+    </script>
+
+    }
