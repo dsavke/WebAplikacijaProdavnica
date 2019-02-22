@@ -145,9 +145,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DobavljacController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KorisnikController.cs" />
     <Compile Include="Controllers\KorisnikUlogaController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProdavnicaController.cs" />
     <Compile Include="Controllers\UlogaController.cs" />
     <Compile Include="DBModels\Artikl.cs">
@@ -183,10 +183,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HashHelper.cs" />
     <Compile Include="Models\ArtiklViewModel.cs" />
     <Compile Include="Models\DobavljacViewModel.cs" />
+    <Compile Include="Models\KorisnikIzmijeniSifruViewModel.cs" />
     <Compile Include="Models\KorisnikUlogaViewModel.cs" />
     <Compile Include="Models\KorisnikViewModel.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\UlogaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.en.Designer.cs">
@@ -465,6 +468,8 @@
     <Content Include="Views\Korisnik\Index.cshtml" />
     <Content Include="Views\Uloga\Index.cshtml" />
     <Content Include="Views\KorisnikUloga\Index.cshtml" />
+    <Content Include="Views\Login\UlogujSe.cshtml" />
+    <Content Include="Views\Login\IzmijeniSifru.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

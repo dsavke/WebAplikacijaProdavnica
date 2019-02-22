@@ -49,7 +49,26 @@
                         width: '15%',
                         type: 'date',
                         displayFormat: 'yy-mm-dd'
+                    },
+                    Username: {
+                        title: 'Korisnicko ime',
+                        list: false
+                    },
+                    Password: {
+                        title: 'Sifra',
+                        list: false,
+                        type: 'password'
                     }
+                },
+                formCreated: function (event, data) {
+                    $("#Edit-Ime").keyup(function () {
+                        $("#Edit-Username").val($("#Edit-Ime").val().toLowerCase() + "." + $("#Edit-Prezime").val().toLowerCase());
+                    });
+
+                    $("#Edit-Prezime").keyup(function () {
+                        $("#Edit-Username").val($("#Edit-Ime").val().toLowerCase() + "." + $("#Edit-Prezime").val().toLowerCase());
+                    });
+
                 }
             });
 

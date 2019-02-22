@@ -12,11 +12,14 @@ namespace WebAplikacijaProdavnica.Controllers
     public class DobavljacController : Controller
     {
         // GET: Dobavljac
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             return View();
         }
+
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult List(int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
         {
             try
@@ -48,6 +51,7 @@ namespace WebAplikacijaProdavnica.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult Create(DobavljacViewModel dobavljac)
         {
             try
@@ -76,6 +80,7 @@ namespace WebAplikacijaProdavnica.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult Update(DobavljacViewModel dobavljac)
         {
             try
@@ -100,6 +105,7 @@ namespace WebAplikacijaProdavnica.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult Delete(int DobavljacId)
         {
             try

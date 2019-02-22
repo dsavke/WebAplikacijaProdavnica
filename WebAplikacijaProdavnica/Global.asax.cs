@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Security;
 
 namespace WebAplikacijaProdavnica
 {
@@ -35,6 +36,23 @@ namespace WebAplikacijaProdavnica
             }
             Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(fallbackLanguage);
 
+        }
+
+        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
+        {
+            var ctx = HttpContext.Current;
+            if (ctx.Request.IsAuthenticated)
+            {
+                var authCookie = ctx.Request.Cookies[FormsAuthentication.FormsCookieName];
+
+                if (authCookie != null)
+                {
+                    var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+
+                    ctx.User = new System.Security.Principal.GenericPrincipal(
+                        new System.Security.Principal.GenericIdentity(authTicket.Name, "Forms"), authTicket.UserData.Split(','));
+                }
+            }
         }
 
     }

@@ -24,13 +24,17 @@
                     <li>@Html.ActionLink("Dobavljac", "Index", "Dobavljac")</li>
                     <li style="padding-top:12px">
                         @Html.DropDownList("Jezik", new List<SelectListItem>()
-                   {
-                       new SelectListItem(){ Text = "Ovo da bi zeznuo srpski", Value = ""},
-                       new SelectListItem(){ Text = "Srpski", Value = ""},
-                       new SelectListItem(){ Text = "Engleski", Value = "en"},
-                       new SelectListItem(){ Text = "Portugalski", Value = "pt"},
-                   }, new { @class = "form-control", @id = "lista"})
+                           {
+                               new SelectListItem(){ Text = "Ovo da bi zeznuo srpski", Value = ""},
+                               new SelectListItem(){ Text = "Srpski", Value = ""},
+                               new SelectListItem(){ Text = "Engleski", Value = "en"},
+                               new SelectListItem(){ Text = "Portugalski", Value = "pt"},
+                           }, new { @class = "form-control", @id = "lista"})
                     </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                    <li>@Html.ActionLink("Odjava", "IzlogujSe", "Login")</li>
+                    }
                 </ul>
             </div>
         </div>

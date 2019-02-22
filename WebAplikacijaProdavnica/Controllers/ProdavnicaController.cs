@@ -10,7 +10,7 @@ namespace WebAplikacijaProdavnica.Controllers
 {
     public class ProdavnicaController : Controller
     {
-
+        [AllowAnonymous]
         public JsonResult PromijeniJezik(string lang)
         {
             HttpCookie myCookie = new HttpCookie("Jezik");
@@ -27,6 +27,7 @@ namespace WebAplikacijaProdavnica.Controllers
         }
 
         // GET: Prodavnica
+        [Authorize(Roles = "Administrator, Moderator")]
         public ActionResult Index()
         {
             using (var context = new ProdavnicaContext())
@@ -48,6 +49,7 @@ namespace WebAplikacijaProdavnica.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator, Moderator")]
         public ActionResult Create()
         {
             using (var context = new ProdavnicaContext())
@@ -63,6 +65,7 @@ namespace WebAplikacijaProdavnica.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator, Moderator")]
         public ActionResult Create(ArtiklViewModel artiklViewModel)
         {
             using(var context = new ProdavnicaContext())
@@ -84,6 +87,7 @@ namespace WebAplikacijaProdavnica.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator, Moderator")]
         public ActionResult Edit(int id)
         {
             using(var context = new ProdavnicaContext())
@@ -114,6 +118,7 @@ namespace WebAplikacijaProdavnica.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator, Moderator")]
         public ActionResult Edit(ArtiklViewModel artiklViewModel)
         {
             using (var context = new ProdavnicaContext())
@@ -135,6 +140,7 @@ namespace WebAplikacijaProdavnica.Controllers
             }
         }
 
+        [Authorize(Roles = "Administrator, Moderator")]
         public ActionResult Delete(int id)
         {
             using(var context = new ProdavnicaContext())
@@ -159,6 +165,7 @@ namespace WebAplikacijaProdavnica.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator, Moderator")]
         public ActionResult Delete(string id)
         {
             var artiklID = Convert.ToInt32(id);

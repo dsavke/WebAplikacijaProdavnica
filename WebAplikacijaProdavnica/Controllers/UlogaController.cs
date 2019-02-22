@@ -12,6 +12,7 @@ namespace WebAplikacijaProdavnica.Controllers
     public class UlogaController : Controller
     {
         // GET: Uloga
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             return View();
@@ -19,6 +20,7 @@ namespace WebAplikacijaProdavnica.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult List(int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
         {
             try
@@ -50,6 +52,7 @@ namespace WebAplikacijaProdavnica.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult Create(UlogaViewModel ulogaViewModel)
         {
             try
@@ -78,6 +81,7 @@ namespace WebAplikacijaProdavnica.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult Edit(UlogaViewModel ulogaViewModel)
         {
             try
@@ -102,6 +106,7 @@ namespace WebAplikacijaProdavnica.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult Delete(int UlogaID)
         {
             try

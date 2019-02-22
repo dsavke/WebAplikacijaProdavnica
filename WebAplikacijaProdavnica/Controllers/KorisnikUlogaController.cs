@@ -12,12 +12,14 @@ namespace WebAplikacijaProdavnica.Controllers
     public class KorisnikUlogaController : Controller
     {
         // GET: KorisnikUloga
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult Korisnici()
         {
             try
@@ -41,6 +43,7 @@ namespace WebAplikacijaProdavnica.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult Uloge()
         {
             try
@@ -67,6 +70,7 @@ namespace WebAplikacijaProdavnica.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult List(int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
         {
             try
@@ -99,6 +103,7 @@ namespace WebAplikacijaProdavnica.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult Create(KorisnikUlogaViewModel korisnikUlogaViewModel)
         {
             try
@@ -137,6 +142,7 @@ namespace WebAplikacijaProdavnica.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult Edit(KorisnikUlogaViewModel korisnikUlogaViewModel)
         {
             try
@@ -170,6 +176,7 @@ namespace WebAplikacijaProdavnica.Controllers
             }
         }
         [HttpPost]
+        [Authorize(Roles = "Administrator")]
         public JsonResult Delete(int KorisnikUlogaID)
         {
             try
