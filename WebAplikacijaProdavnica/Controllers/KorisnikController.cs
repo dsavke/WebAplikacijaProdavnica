@@ -78,7 +78,7 @@ namespace WebAplikacijaProdavnica.Controllers
                         DatumRodjenja = korisnikViewModel.DatumRodjenja,
                         KorisnikID = korisnikViewModel.KorisnikID,
                         Username = korisnikViewModel.Username,
-                        Password = korisnikViewModel.Password
+                        Password = Encryptor.MD5Hash(korisnikViewModel.Password)
                     };
                     context.Korisniks.Add(korisnik);
                     context.SaveChanges();

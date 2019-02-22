@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using WebAplikacijaProdavnica.DBModels;
+using WebAplikacijaProdavnica.Helpers;
 using WebAplikacijaProdavnica.Models;
 
 namespace WebAplikacijaProdavnica.Controllers
@@ -26,7 +27,7 @@ namespace WebAplikacijaProdavnica.Controllers
             using (var context = new ProdavnicaContext())
             {
 
-                var korisnik = context.Korisniks.FirstOrDefault(k => k.Username == viewModel.Username && k.Password == viewModel.Password);
+                var korisnik = context.Korisniks.ToList().FirstOrDefault(k => k.Username == viewModel.Username && k.Password == Encryptor.MD5Hash(viewModel.Password));
 
                 if (korisnik != null)
                 {
