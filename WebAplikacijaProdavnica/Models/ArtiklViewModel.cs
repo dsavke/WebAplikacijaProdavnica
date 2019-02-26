@@ -12,6 +12,7 @@ namespace WebAplikacijaProdavnica.Models
         public int ArtiklID { get; set; }
         [Display(Name = "Naziv", ResourceType = typeof(Resources.Resource))]
         [Required]
+       // [RegularExpression(@"^[0-9 \p{L}]+$")]
         public string Naziv { get; set; }
         [Display(Name = "Cijena", ResourceType = typeof(Resources.Resource))]
         public decimal Cijena { get; set; }

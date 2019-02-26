@@ -1,0 +1,184 @@
+﻿@model IEnumerable<WebAplikacijaProdavnica.Models.ArtikliNaStanjuViewModel>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<div class="container" style="padding:40px">
+
+    <div class="row">
+
+        <div class="col-md-6 bg-danger" id="droppable" style="min-height:100px">
+
+            <ul id="listaStavki">
+
+            </ul>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <ul id="stanjeArtikli">
+
+                @foreach (var item in Model)
+                {
+                <li class="draggable" data-cijena="@item.Cijena" data-artiklid="@item.ArtiklID" data-naziv="@item.Naziv" style="list-style:none">
+                    <div class=" bg-info">
+
+                        <div class="row" style="padding:10px">
+                            <div class="col-md-6">
+                                <p>@item.Naziv</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-right">@item.Cijena</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                }
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div>
+    <p>Ukupna cijena: <snap id="ukupnaVrijednost">0</snap></p>
+</div>
+
+<div>
+    <input type="button" id="btnSacuvaj" value="Sacuvaj"/>
+</div>
+
+<div>
+    <p id="Greska" style="color:red"></p>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $("#btnSacuvaj").on('click', function () {
+            let listaKupljenihStavki = posaljiKupljeneStavke();
+
+            $.post('/Racun/Create', listaKupljenihStavki, function (result, status) {
+
+                if (result.Success) {
+                    window.location.href = "/Racun/Create";
+                } else {
+                    $("#Greska").text(result.Message);
+                }
+
+            });
+
+        });
+
+        function dragovanje() {
+            $(".draggable").draggable({
+                cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+                revert: "invalid", // when not dropped, the item will revert back to its initial position
+                containment: "document",
+                cursor: "move"
+            });
+        }
+
+        function dropovanje() {
+
+            $("#droppable").droppable({
+                drop: function (event, ui) {
+
+
+                    $("#listaStavki").append(`<li style="list-style:none" data-cijena="` + Number(ui.draggable.attr('data-cijena')) + `" data-artiklid="` + ui.draggable.attr('data-artiklid') + `" data-naziv="` + ui.draggable.attr('data-naziv') + `">
+                        <div>
+                            <p>`+ ui.draggable.attr('data-naziv') + `<button class="btnX" style="float:right">X</button></p>
+                        </div>
+                        <div>
+                            <p>Kolicina: <input type="number" class="kolicinaInput" /><span style="float:right">Cijena: `+ ui.draggable.attr('data-cijena') + `</span></p>
+                        </div>
+                   </li> `);
+
+                    $("#listaStavki").children().last().find('button').on('click', function () {
+                        var li = $(this).parent().parent().parent();
+
+                        $("#stanjeArtikli").append(`<li class="draggable" data-cijena="` + li.data('cijena') + `" data-artiklid="` + li.data('artiklid') + `" data-naziv="` + li.data('naziv') + `" style="list-style:none">
+                            <div class=" bg-info">
+
+                                <div class="row" style="padding:10px">
+                                    <div class="col-md-6">
+                                        <p>` + li.data('naziv') + `</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="text-right">` + li.data('cijena') + `</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>`);
+
+                        li.remove();
+                        izracunajCijenu();
+                        dragovanje();
+                    });
+
+                    $("#listaStavki").children().last().find('input').keyup(function () {
+                        izracunajCijenu();
+                    });
+
+                    $("#listaStavki").children().last().find('input').change(function () {
+                        izracunajCijenu();
+                    });
+
+                    ui.draggable.remove();
+                    izracunajCijenu();
+
+                }
+            });
+        }
+        dragovanje();
+
+        dropovanje();
+
+        });
+
+
+    function izracunajCijenu() {
+
+        let cijena = 0;
+
+        $.each($("#listaStavki").children(), function (key, value) {
+            var kolicina = Number(value.children[1].getElementsByClassName("kolicinaInput")[0].value);
+            cijena += (Number(value.dataset.cijena) || 0) * (kolicina || 0);
+
+        });
+
+        $("#ukupnaVrijednost").text(cijena);
+
+    }
+
+    function posaljiKupljeneStavke() {                                   
+
+        var objekat = {
+            kupljeneStavke: []
+        };
+
+        $.each($("#listaStavki").children(), function (key, value) {
+
+            objekat.kupljeneStavke.push({ ArtiklID: Number(value.dataset.artiklid), Kolicina: Number(value.children[1].getElementsByClassName("kolicinaInput")[0].value)});
+
+        });
+
+        return objekat;
+
+    }
+
+
+</script>

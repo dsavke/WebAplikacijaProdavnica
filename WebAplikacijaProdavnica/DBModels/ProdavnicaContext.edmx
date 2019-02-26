@@ -45,6 +45,26 @@
           <Property Name="KorisnikID" Type="int" Nullable="false" />
           <Property Name="UlogaID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="RacunID" />
+          </Key>
+          <Property Name="RacunID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KorisnikID" Type="int" Nullable="false" />
+          <Property Name="DatumIzdavanja" Type="date" Nullable="false" />
+          <Property Name="BrojRacuna" Type="int" Nullable="false" />
+          <Property Name="UkupanIznos" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stavka">
+          <Key>
+            <PropertyRef Name="StavkaID" />
+          </Key>
+          <Property Name="StavkaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RacunID" Type="int" Nullable="false" />
+          <Property Name="ArtikalID" Type="int" Nullable="false" />
+          <Property Name="Kolicina" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Cijena" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="Uloga">
           <Key>
             <PropertyRef Name="UlogaID" />
@@ -88,11 +108,49 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Racun_Korisnik">
+          <End Role="Korisnik" Type="Self.Korisnik" Multiplicity="1" />
+          <End Role="Racun" Type="Self.Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Racun">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_Artikl">
+          <End Role="Artikl" Type="Self.Artikl" Multiplicity="1" />
+          <End Role="Stavka" Type="Self.Stavka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikl">
+              <PropertyRef Name="ArtiklID" />
+            </Principal>
+            <Dependent Role="Stavka">
+              <PropertyRef Name="ArtikalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_Racun">
+          <End Role="Racun" Type="Self.Racun" Multiplicity="1" />
+          <End Role="Stavka" Type="Self.Stavka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racun">
+              <PropertyRef Name="RacunID" />
+            </Principal>
+            <Dependent Role="Stavka">
+              <PropertyRef Name="RacunID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Skola_dejanSavanovicModelStoreContainer">
           <EntitySet Name="Artikl" EntityType="Self.Artikl" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dobavljac" EntityType="Self.Dobavljac" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Korisnik" EntityType="Self.Korisnik" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KorisnikUloga" EntityType="Self.KorisnikUloga" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Racun" EntityType="Self.Racun" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stavka" EntityType="Self.Stavka" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Uloga" EntityType="Self.Uloga" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Artikl_Dobavljac" Association="Self.FK_Artikl_Dobavljac">
             <End Role="Dobavljac" EntitySet="Dobavljac" />
@@ -106,6 +164,18 @@
             <End Role="Uloga" EntitySet="Uloga" />
             <End Role="KorisnikUloga" EntitySet="KorisnikUloga" />
           </AssociationSet>
+          <AssociationSet Name="FK_Racun_Korisnik" Association="Self.FK_Racun_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisnik" />
+            <End Role="Racun" EntitySet="Racun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_Artikl" Association="Self.FK_Stavka_Artikl">
+            <End Role="Artikl" EntitySet="Artikl" />
+            <End Role="Stavka" EntitySet="Stavka" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_Racun" Association="Self.FK_Stavka_Racun">
+            <End Role="Racun" EntitySet="Racun" />
+            <End Role="Stavka" EntitySet="Stavka" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -116,18 +186,32 @@
           <EntitySet Name="Dobavljacs" EntityType="Skola_dejanSavanovicModel.Dobavljac" />
           <EntitySet Name="Korisniks" EntityType="Skola_dejanSavanovicModel.Korisnik" />
           <EntitySet Name="KorisnikUlogas" EntityType="Skola_dejanSavanovicModel.KorisnikUloga" />
+          <EntitySet Name="Racuns" EntityType="Skola_dejanSavanovicModel.Racun" />
+          <EntitySet Name="Stavkas" EntityType="Skola_dejanSavanovicModel.Stavka" />
           <EntitySet Name="Ulogas" EntityType="Skola_dejanSavanovicModel.Uloga" />
           <AssociationSet Name="FK_Artikl_Dobavljac" Association="Skola_dejanSavanovicModel.FK_Artikl_Dobavljac">
             <End Role="Dobavljac" EntitySet="Dobavljacs" />
             <End Role="Artikl" EntitySet="Artikls" />
           </AssociationSet>
+          <AssociationSet Name="FK_Stavka_Artikl" Association="Skola_dejanSavanovicModel.FK_Stavka_Artikl">
+            <End Role="Artikl" EntitySet="Artikls" />
+            <End Role="Stavka" EntitySet="Stavkas" />
+          </AssociationSet>
           <AssociationSet Name="FK_KorisnikUloga_Korisnik" Association="Skola_dejanSavanovicModel.FK_KorisnikUloga_Korisnik">
             <End Role="Korisnik" EntitySet="Korisniks" />
             <End Role="KorisnikUloga" EntitySet="KorisnikUlogas" />
           </AssociationSet>
+          <AssociationSet Name="FK_Racun_Korisnik" Association="Skola_dejanSavanovicModel.FK_Racun_Korisnik">
+            <End Role="Korisnik" EntitySet="Korisniks" />
+            <End Role="Racun" EntitySet="Racuns" />
+          </AssociationSet>
           <AssociationSet Name="FK_KorisnikUloga_Uloga" Association="Skola_dejanSavanovicModel.FK_KorisnikUloga_Uloga">
             <End Role="Uloga" EntitySet="Ulogas" />
             <End Role="KorisnikUloga" EntitySet="KorisnikUlogas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Stavka_Racun" Association="Skola_dejanSavanovicModel.FK_Stavka_Racun">
+            <End Role="Racun" EntitySet="Racuns" />
+            <End Role="Stavka" EntitySet="Stavkas" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Artikl">
@@ -142,6 +226,7 @@
           <Property Name="DobavljacID" Type="Int32" Nullable="false" />
           <Property Name="Slika" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Dobavljac" Relationship="Skola_dejanSavanovicModel.FK_Artikl_Dobavljac" FromRole="Artikl" ToRole="Dobavljac" />
+          <NavigationProperty Name="Stavkas" Relationship="Skola_dejanSavanovicModel.FK_Stavka_Artikl" FromRole="Artikl" ToRole="Stavka" />
         </EntityType>
         <EntityType Name="Dobavljac">
           <Key>
@@ -164,6 +249,7 @@
           <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="KorisnikUlogas" Relationship="Skola_dejanSavanovicModel.FK_KorisnikUloga_Korisnik" FromRole="Korisnik" ToRole="KorisnikUloga" />
+          <NavigationProperty Name="Racuns" Relationship="Skola_dejanSavanovicModel.FK_Racun_Korisnik" FromRole="Korisnik" ToRole="Racun" />
         </EntityType>
         <EntityType Name="KorisnikUloga">
           <Key>
@@ -174,6 +260,30 @@
           <Property Name="UlogaID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Korisnik" Relationship="Skola_dejanSavanovicModel.FK_KorisnikUloga_Korisnik" FromRole="KorisnikUloga" ToRole="Korisnik" />
           <NavigationProperty Name="Uloga" Relationship="Skola_dejanSavanovicModel.FK_KorisnikUloga_Uloga" FromRole="KorisnikUloga" ToRole="Uloga" />
+        </EntityType>
+        <EntityType Name="Racun">
+          <Key>
+            <PropertyRef Name="RacunID" />
+          </Key>
+          <Property Name="RacunID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KorisnikID" Type="Int32" Nullable="false" />
+          <Property Name="DatumIzdavanja" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="BrojRacuna" Type="Int32" Nullable="false" />
+          <Property Name="UkupanIznos" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Korisnik" Relationship="Skola_dejanSavanovicModel.FK_Racun_Korisnik" FromRole="Racun" ToRole="Korisnik" />
+          <NavigationProperty Name="Stavkas" Relationship="Skola_dejanSavanovicModel.FK_Stavka_Racun" FromRole="Racun" ToRole="Stavka" />
+        </EntityType>
+        <EntityType Name="Stavka">
+          <Key>
+            <PropertyRef Name="StavkaID" />
+          </Key>
+          <Property Name="StavkaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RacunID" Type="Int32" Nullable="false" />
+          <Property Name="ArtikalID" Type="Int32" Nullable="false" />
+          <Property Name="Kolicina" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Cijena" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Artikl" Relationship="Skola_dejanSavanovicModel.FK_Stavka_Artikl" FromRole="Stavka" ToRole="Artikl" />
+          <NavigationProperty Name="Racun" Relationship="Skola_dejanSavanovicModel.FK_Stavka_Racun" FromRole="Stavka" ToRole="Racun" />
         </EntityType>
         <EntityType Name="Uloga">
           <Key>
@@ -195,6 +305,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Stavka_Artikl">
+          <End Type="Skola_dejanSavanovicModel.Artikl" Role="Artikl" Multiplicity="1" />
+          <End Type="Skola_dejanSavanovicModel.Stavka" Role="Stavka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artikl">
+              <PropertyRef Name="ArtiklID" />
+            </Principal>
+            <Dependent Role="Stavka">
+              <PropertyRef Name="ArtikalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_KorisnikUloga_Korisnik">
           <End Type="Skola_dejanSavanovicModel.Korisnik" Role="Korisnik" Multiplicity="1" />
           <End Type="Skola_dejanSavanovicModel.KorisnikUloga" Role="KorisnikUloga" Multiplicity="*" />
@@ -203,6 +325,18 @@
               <PropertyRef Name="KorisnikID" />
             </Principal>
             <Dependent Role="KorisnikUloga">
+              <PropertyRef Name="KorisnikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Racun_Korisnik">
+          <End Type="Skola_dejanSavanovicModel.Korisnik" Role="Korisnik" Multiplicity="1" />
+          <End Type="Skola_dejanSavanovicModel.Racun" Role="Racun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Korisnik">
+              <PropertyRef Name="KorisnikID" />
+            </Principal>
+            <Dependent Role="Racun">
               <PropertyRef Name="KorisnikID" />
             </Dependent>
           </ReferentialConstraint>
@@ -216,6 +350,18 @@
             </Principal>
             <Dependent Role="KorisnikUloga">
               <PropertyRef Name="UlogaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Stavka_Racun">
+          <End Type="Skola_dejanSavanovicModel.Racun" Role="Racun" Multiplicity="1" />
+          <End Type="Skola_dejanSavanovicModel.Stavka" Role="Stavka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Racun">
+              <PropertyRef Name="RacunID" />
+            </Principal>
+            <Dependent Role="Stavka">
+              <PropertyRef Name="RacunID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -266,6 +412,28 @@
                 <ScalarProperty Name="UlogaID" ColumnName="UlogaID" />
                 <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
                 <ScalarProperty Name="KorisnikUlogaID" ColumnName="KorisnikUlogaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Racuns">
+            <EntityTypeMapping TypeName="Skola_dejanSavanovicModel.Racun">
+              <MappingFragment StoreEntitySet="Racun">
+                <ScalarProperty Name="UkupanIznos" ColumnName="UkupanIznos" />
+                <ScalarProperty Name="BrojRacuna" ColumnName="BrojRacuna" />
+                <ScalarProperty Name="DatumIzdavanja" ColumnName="DatumIzdavanja" />
+                <ScalarProperty Name="KorisnikID" ColumnName="KorisnikID" />
+                <ScalarProperty Name="RacunID" ColumnName="RacunID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stavkas">
+            <EntityTypeMapping TypeName="Skola_dejanSavanovicModel.Stavka">
+              <MappingFragment StoreEntitySet="Stavka">
+                <ScalarProperty Name="Cijena" ColumnName="Cijena" />
+                <ScalarProperty Name="Kolicina" ColumnName="Kolicina" />
+                <ScalarProperty Name="ArtikalID" ColumnName="ArtikalID" />
+                <ScalarProperty Name="RacunID" ColumnName="RacunID" />
+                <ScalarProperty Name="StavkaID" ColumnName="StavkaID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

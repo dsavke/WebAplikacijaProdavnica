@@ -149,6 +149,7 @@
     <Compile Include="Controllers\KorisnikUlogaController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProdavnicaController.cs" />
+    <Compile Include="Controllers\RacunController.cs" />
     <Compile Include="Controllers\UlogaController.cs" />
     <Compile Include="DBModels\Artikl.cs">
       <DependentUpon>ProdavnicaContext.tt</DependentUpon>
@@ -177,6 +178,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ProdavnicaContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DBModels\Racun.cs">
+      <DependentUpon>ProdavnicaContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBModels\Stavka.cs">
+      <DependentUpon>ProdavnicaContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBModels\Uloga.cs">
       <DependentUpon>ProdavnicaContext.tt</DependentUpon>
     </Compile>
@@ -185,11 +192,13 @@
     </Compile>
     <Compile Include="Helpers\Encryptor.cs" />
     <Compile Include="Helpers\HashHelper.cs" />
+    <Compile Include="Models\ArtikliNaStanjuViewModel.cs" />
     <Compile Include="Models\ArtiklViewModel.cs" />
     <Compile Include="Models\DobavljacViewModel.cs" />
     <Compile Include="Models\KorisnikIzmijeniSifruViewModel.cs" />
     <Compile Include="Models\KorisnikUlogaViewModel.cs" />
     <Compile Include="Models\KorisnikViewModel.cs" />
+    <Compile Include="Models\KupljeniArtikliViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\UlogaViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -471,6 +480,8 @@
     <Content Include="Views\KorisnikUloga\Index.cshtml" />
     <Content Include="Views\Login\UlogujSe.cshtml" />
     <Content Include="Views\Login\IzmijeniSifru.cshtml" />
+    <Content Include="Views\Racun\Create.cshtml" />
+    <Content Include="Views\Racun\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

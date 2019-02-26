@@ -18,6 +18,7 @@ namespace WebAplikacijaProdavnica.DBModels
         public Korisnik()
         {
             this.KorisnikUlogas = new HashSet<KorisnikUloga>();
+            this.Racuns = new HashSet<Racun>();
         }
     
         public int KorisnikID { get; set; }
@@ -31,5 +32,7 @@ namespace WebAplikacijaProdavnica.DBModels
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KorisnikUloga> KorisnikUlogas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Racun> Racuns { get; set; }
     }
 }

@@ -29,6 +29,8 @@ namespace WebAplikacijaProdavnica.DBModels
         public virtual DbSet<Dobavljac> Dobavljacs { get; set; }
         public virtual DbSet<Korisnik> Korisniks { get; set; }
         public virtual DbSet<KorisnikUloga> KorisnikUlogas { get; set; }
+        public virtual DbSet<Racun> Racuns { get; set; }
+        public virtual DbSet<Stavka> Stavkas { get; set; }
         public virtual DbSet<Uloga> Ulogas { get; set; }
     }
 }

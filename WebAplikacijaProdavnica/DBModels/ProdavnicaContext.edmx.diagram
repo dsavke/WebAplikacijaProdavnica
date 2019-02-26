@@ -5,14 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="cdb99480ba5e459fbb7cd2a926c04689" Name="Diagram1">
-        <EntityTypeShape EntityType="Skola_dejanSavanovicModel.Artikl" Width="1.5" PointX="5" PointY="5" />
-        <EntityTypeShape EntityType="Skola_dejanSavanovicModel.Dobavljac" Width="1.5" PointX="2.75" PointY="5.375" />
-        <EntityTypeShape EntityType="Skola_dejanSavanovicModel.Korisnik" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="Skola_dejanSavanovicModel.KorisnikUloga" Width="1.5" PointX="3" PointY="1.375" />
-        <EntityTypeShape EntityType="Skola_dejanSavanovicModel.Uloga" Width="1.5" PointX="0.75" PointY="5.5" />
+        <EntityTypeShape EntityType="Skola_dejanSavanovicModel.Artikl" Width="1.5" PointX="3" PointY="10" />
+        <EntityTypeShape EntityType="Skola_dejanSavanovicModel.Dobavljac" Width="1.5" PointX="0.75" PointY="10.5" />
+        <EntityTypeShape EntityType="Skola_dejanSavanovicModel.Korisnik" Width="1.5" PointX="0.75" PointY="2.125" />
+        <EntityTypeShape EntityType="Skola_dejanSavanovicModel.KorisnikUloga" Width="1.5" PointX="3" PointY="1.625" />
+        <EntityTypeShape EntityType="Skola_dejanSavanovicModel.Racun" Width="1.5" PointX="3" PointY="5.125" />
+        <EntityTypeShape EntityType="Skola_dejanSavanovicModel.Stavka" Width="1.5" PointX="5.25" PointY="5.125" />
+        <EntityTypeShape EntityType="Skola_dejanSavanovicModel.Uloga" Width="1.5" PointX="0.75" PointY="6.875" />
         <AssociationConnector Association="Skola_dejanSavanovicModel.FK_Artikl_Dobavljac" />
+        <AssociationConnector Association="Skola_dejanSavanovicModel.FK_Stavka_Artikl" />
         <AssociationConnector Association="Skola_dejanSavanovicModel.FK_KorisnikUloga_Korisnik" />
+        <AssociationConnector Association="Skola_dejanSavanovicModel.FK_Racun_Korisnik" />
         <AssociationConnector Association="Skola_dejanSavanovicModel.FK_KorisnikUloga_Uloga" />
+        <AssociationConnector Association="Skola_dejanSavanovicModel.FK_Stavka_Racun" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
