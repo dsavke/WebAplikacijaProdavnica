@@ -52,7 +52,7 @@ namespace WebAplikacijaProdavnica.Controllers
                     return Json(new { Success = false, Message = "Pokusaj ponovo!" });
                 }
 
-                if (kupljeneStavke.Any(k => k.Kolicina == 0 ||  k.ArtiklID == 0))
+                if (kupljeneStavke.Any(k => k.Kolicina == 0 ||  k.ArtiklID == 0 || k.Kolicina < 0 || k.ArtiklID < 0))
                 {
                     return Json(new { Success = false, Message = "Pokusaj ponovo!" });
                 }
